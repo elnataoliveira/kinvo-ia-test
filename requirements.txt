@@ -1,0 +1,4 @@
+Flask==1.1.1
+spacy==2.2.3
+crochet==1.12.0
+scrapy==2.0.0

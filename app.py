@@ -66,6 +66,6 @@ def extract_entities():
     for entity in texto.ents:
         entities.append(entity.text)
     if len(entities) == 0:
-        return 'Nenhuma notícia encontrada'
+        return 'Nenhuma notícia sobre a B3 encontrada nos domínios http://financenews.com.br/feed/ e https://www.ultimoinstante.com.br/feed/'
 
     return jsonify({'entities' : entities})
