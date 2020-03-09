@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <div class="card">
+        <div class="card-header">Notícias Extraídas</div>
+            <div class="card-body">
+                {% if entities %}
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Entidades</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for entity in entities %}
+                                <tr >
+                                    <td>Entidade</td>
+                                    <td>{{entity}}</td>                    
+                                </tr>
+                            {% endfor%}
+                        </tbody>    
+                        <tfoot>
+                            <tr>
+                                <th>Entidades</th>                
+                            </tr>
+                        </tfoot>
+                    </table>
+                {% else %}
+                    <h4>Nada encontrado</h4>
+                {% endif %}
+            </div>
+        <!--<div class="card-footer"></div>-->
+    </div>
+</div>
+{% endblock %}
+
