@@ -5,17 +5,35 @@
         <div class="card-header">Minerar notícias</div>
             <div class="card-body">
                 {% if quotes_list %}
-                    <h3>Concluído</h3>
-                    <p>{{quotes_list}}</p>
+                <table id="example" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                        <tr class="clickable-row">
+                            <th>Notícias</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for quote in quotes_list %}
+                        {% for qt in quote %}
+                            <tr >
+                                <td>{{qt}}</td>                    
+                            </tr>
+                        {% endfor%}
+                        {% endfor%}
+                    </tbody>    
+                    <tfoot>
+                        <tr>
+                            <th>Notícias</th>
+                        </tr>
+                    </tfoot>
+                </table>
                 {% else %}
-                    <button onClick="window.location.reload();">Iniciar</button>
+                    <button class="btn btn-primary btn-md" onClick="window.location.reload();">Iniciar</button>
                 {% endif %}
             </div>
         <!--<div class="card-footer"></div>-->
     </div>
 </div>
 {% endblock %}
-
-    
+   
 
 

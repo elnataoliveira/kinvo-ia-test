@@ -1,7 +1,7 @@
 
 iniciar o app:
 
-	$flask run
+	~/kinvo-ia-tes$ flask run
 
 end-points:
 

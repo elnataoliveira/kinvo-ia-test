@@ -5,7 +5,8 @@ from flask import Flask, jsonify, render_template, request, redirect, url_for
 from scrapy.crawler import CrawlerRunner
 from feedsnews import NewsSpider
 import re
-import spacy  
+import spacy
+import json  
 
 app = Flask('Scrape With Flask')
 #atribui CrwalerRunner a variável
@@ -19,7 +20,7 @@ scrape_complete = False
 def home():
     return render_template('index.html')
 
-@app.route('/crawl')
+@app.route('/crawl', methods=['GET', 'POST'])
 def crawl_for_quotes():
     
     global scrape_in_progress
@@ -56,23 +57,30 @@ def finished_scrape(null):
 
 def save(_list):
     buscar = 'Ibovespa'
-    fl = open('notices.json', 'w')
+    #fl = open('notices.json', 'w')
     elementos = []
     for lista in _list:
         for element in lista:
             if re.search('\\b'+buscar+'\\b', element, re.IGNORECASE):
                 elementos.append(element)
+
     if len(elementos) > 0:
-        fl.write(str(elementos))                         
-    fl.close()
+        with open('notices.json', 'w') as outfile:
+            json.dump(elementos, outfile)                        
+    outfile.close()
       
-@app.route('/extract')
+@app.route('/extract', methods=['GET', 'POST'])
 def extract_entities():
-    f = open('notices.json', "r") 
+    #n = open('notices.json', 'r')
+    with open('notices.json') as json_file:
+        noticias = json.load(json_file)
+    #e = open('entidades.json', 'a') 
     nlp = spacy.load('pt')
-    texto = nlp(f.read())    
+    texto = nlp(str(noticias))    
     entities = []
     for entity in texto.ents:
         entities.append(entity.text)
-        
+    with open('entidades.json', 'a') as outfile:
+            json.dump(entities, outfile)
+    #e.write(str(entities))    
     return render_template('extract.html',entities=entities)
